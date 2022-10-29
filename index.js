@@ -100,7 +100,7 @@ class App {
     this.space = new cp.Space;
     this.space.gravity = cp.v(0, 1750);
     this.floor = new cp.SegmentShape(this.space.staticBody, {
-      x: 150,
+      x: 100,
       y: 800
     }, {
       x: 1052,
