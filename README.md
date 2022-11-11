@@ -5,5 +5,3 @@ Example for [my sdl2 wrapper library](https://github.com/PixelsuftJS/minsdl2js)
 npm i
 node index [--no-vsync] [--no-background] [--renderer %renderer%]
 ```
-## Bugs
- - SDL2_gfx sometimes doesn't draw circles

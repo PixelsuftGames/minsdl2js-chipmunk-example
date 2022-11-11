@@ -43,32 +43,28 @@ class Circle {
     this.shape.setFriction(app.random_float(0, 2));
     this.space.addBody(this.body);
     this.space.addShape(this.shape);
-    app.circles.push(this);
+    this.circles.push(this);
   }
 
   draw() {
     if (this.body.p.y > 1000) {
-      this.circles.splice(this.circles.indexOf(this), 1);
+      for (var i = 0; i < this.circles.length; i++) {
+        if (this.circles[i].body.p.y <= 1000)
+          return;
+      }
+      this.circles.splice(0, this.circles.length);
       this.space.removeBody(this.body);
       this.space.removeShape(this.shape);
       return;
     }
     if (this.body.p.y < -1000 || this.body.p.x < -1000 || this.body.p.x > 1252)
       return;
-    // sdl_gfx has bug - it blinks sometimes
     gfx_dll.filledCircleRGBA(
       this.renderer,
       this.body.p.x,
       this.body.p.y,
       this.radius, this.color[0], this.color[1], this.color[2], 255
     );
-    /*gfx_dll.aacircleRGBA(
-      this.renderer,
-      this.body.p.x,
-      this.body.p.y,
-      this.radius,
-      0, 0, 0, 255
-    );*/
   }
 }
 
