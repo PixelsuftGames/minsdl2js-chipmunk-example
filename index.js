@@ -52,9 +52,11 @@ class Circle {
         if (this.circles[i].body.p.y <= 1000)
           return;
       }
+      for (var i = 0; i < this.circles.length; i++) {
+        this.space.removeBody(this.circles[i].body);
+        this.space.removeShape(this.circles[i].shape);
+      }
       this.circles.splice(0, this.circles.length);
-      this.space.removeBody(this.body);
-      this.space.removeShape(this.shape);
       return;
     }
     if (this.body.p.y < -1000 || this.body.p.x < -1000 || this.body.p.x > 1252)
