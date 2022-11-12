@@ -48,25 +48,20 @@ class Circle {
 
   draw() {
     if (this.body.p.y > 1000) {
-      for (var i = 0; i < this.circles.length; i++) {
-        if (this.circles[i].body.p.y <= 1000)
-          return;
-      }
-      for (var i = 0; i < this.circles.length; i++) {
-        this.space.removeBody(this.circles[i].body);
-        this.space.removeShape(this.circles[i].shape);
-      }
-      this.circles.splice(0, this.circles.length);
-      return;
+      this.circles.splice(this.circles.indexOf(this), 1);
+      this.space.removeBody(this.body);
+      this.space.removeShape(this.shape);
+      return 0;
     }
     if (this.body.p.y < -1000 || this.body.p.x < -1000 || this.body.p.x > 1252)
-      return;
+      return 1;
     gfx_dll.filledCircleRGBA(
       this.renderer,
       this.body.p.x,
       this.body.p.y,
       this.radius, this.color[0], this.color[1], this.color[2], 255
     );
+    return 1;
   }
 }
 
@@ -143,8 +138,9 @@ class App {
       dll.SDL_SetRenderDrawColor(this.renderer, 0, 0, 0, 255);
       dll.SDL_RenderClear(this.renderer);
     }
-    for (const circle of this.circles)
-      circle.draw();
+    for (var i = 0; i < this.circles.length;) {
+      i += this.circles[i].draw();
+    }
     this.draw_floor();
     this.render_fps();
     if (this.allow_async_flip) {
