@@ -89,7 +89,7 @@ class App {
     this.show_background = !process.argv.includes('--no-background');
     this.poll_bind = this.poll_event.bind(this);
     this.loop_bind = this.loop.bind(this);
-    this.event_bind = this.event.bind(this);
+    this.event_bind = this.event_check.bind(this);
     this.space = new cp.Space;
     this.space.gravity = cp.v(0, 1750);
     this.floor = new cp.SegmentShape(this.space.staticBody, {
@@ -113,7 +113,7 @@ class App {
     setImmediate(this.poll_bind);
   }
 
-  event(event) {
+  event_check() {
     switch (this.event.type) {
       case sdl.SDL_MOUSEBUTTONDOWN:
         new Circle(this, this.event.button.x, this.event.button.y);
